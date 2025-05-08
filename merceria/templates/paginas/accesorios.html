@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block titulo %}Accesorios{% endblock %}
+
+{% block contenido %}
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold">Accesorios</h1>
+        <p class="lead text-muted">Edición especial</p>
+    </div>
+
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+        {% for acce in accesorios %}
+        <div class="col">
+            <div class="card h-100 border-0 shadow-sm">
+                {% if acce.imagen %}
+                <img src="{{ acce.imagen.url }}" class="card-img-top p-3" style="height: 300px; object-fit: contain;">
+                {% endif %}
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ acce.nombre }}</h5>
+                    <p class="price fw-bold">${{ acce.precio }}</p>
+                    {% if acce.stock > 0 %}
+                        <span class="badge bg-info mb-2">{{ acce.stock }} disponibles</span>
+                    {% else %}
+                        <span class="badge bg-danger mb-2">Agotado</span>
+                    {% endif %}
+                    <a href="{% url 'agregar_al_carrito' acce.id %}" 
+                       class="btn btn-outline-secondary w-100 {% if acce.stock == 0 %}disabled{% endif %}">
+                       {% if acce.stock > 0 %}Agregar al carrito{% else %}No disponible{% endif %}
+                    </a>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+

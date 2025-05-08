@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{%block titulo%} Inicio {%endblock%}
+
+{%block contenido%}
+
+<div id="carouselExampleCaptions" class="carousel slide">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="https://img.freepik.com/free-psd/fashion-design-blank-banner-design_23-2151100725.jpg?t=st=1746696600~exp=1746700200~hmac=938748db8acfc7977a63308f3db6973430fdb72d9321f811ba853b5aeac11edc&w=1380" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-flex flex-column justify-content-center align-items-center" style="height: 100%; top: 0;">
+            <h5 class="fw-bold display-3 text-dark">Bienvenidos a Gran Mercería</h5>
+            <p class="fw-semibold fs-4 text-dark">Los mejores materiales desde 1892</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="https://img.freepik.com/free-photo/top-view-sewing-essentials-with-measuring-tape-scissors_23-2148614748.jpg?t=st=1746702184~exp=1746705784~hmac=98af0161a9fdaf9ec692a97572f2d908e561df1c0128af75dfd18415c333a33e&w=1380" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-flex flex-column justify-content-center align-items-center" style="height: 100%; top: 0 text-dark">
+            <h5 class="fw-bold display-3 text-dark ">Hilos de todos colores</h5>
+            <p class="fw-semibold fs-4 text-dark">Siempre la mejor variedad</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="https://img.freepik.com/free-photo/colorful-beads-case-yarn-spools-pink-background_23-2148137408.jpg?t=st=1746696691~exp=1746700291~hmac=13c87406af3da7b8e047c24f6b0e08b0ed7c1e3df6f166ccebe2ffc5034d947f&w=1380" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-flex flex-column justify-content-center align-items-center" style="height: 100%; top: 0 text-dark">
+            <h5 class="fw-bold display-3 text-dark">La mejor merceria del mundo</h5>
+            <p class="fw-semibold fs-4 text-dark">Acceso a todo el material que necesites</p>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+  <div class="container mt-4">
+    <h2 class="text-center mb-4">Explora nuestras colecciones</h2>
+    
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+        <!-- Colección 1 -->
+        <div class="col">
+            <div class="card h-100 border-0 shadow-sm">
+                <a href="{% url 'telas' %}">
+                <img src="https://img.freepik.com/free-photo/mixed-color-tailoring-leather-tissues-catalog_114579-7247.jpg?t=st=1746700685~exp=1746704285~hmac=9b3c7281730f19eb4bd5ee25066001977aab1c7dea63ca4c6a5a2cd2a7e39646&w=740" class="card-img-top" alt="Telas">
+                <div class="card-body text-center">
+                    <a href="{% url 'telas' %}?categoria=TELAS" class="btn btn-body text-dark fw-bold">Telas</a>
+                </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Colección 2 -->
+        <div class="col">
+            <div class="card h-100 border-0 shadow-sm">
+                <a href="{% url 'hogar' %}">
+                <img src="https://img.freepik.com/free-photo/picture-frame-with-abstract-art-by-pink-velvet-armchair_53876-128125.jpg?t=st=1746700862~exp=1746704462~hmac=af6f20a9502b00bac2f4aa7bca791411783bf5a6bce7505e3f54d7ed2c56fcb3&w=740" class="card-img-top" alt="Hogar">
+                <div class="card-body text-center">
+                    <a href="{% url 'hogar' %}?categoria=HOGAR" class="btn btn-body text-dark fw-bold">Hogar</a>
+                </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Colección 3 -->
+        <div class="col">
+            <div class="card h-100 border-0 shadow-sm">
+                <a href="{% url 'decoracion' %}">
+                <img src="https://img.freepik.com/free-photo/medium-shot-smiley-woman-sewing_23-2148875361.jpg?t=st=1746699196~exp=1746702796~hmac=5ed02f36443a18bfccc5ae9f05642e35d7aa188294dcae8f86fbf9dede04e24b&w=740" class="card-img-top" alt="Decoracion">
+                <div class="card-body text-center">
+                    <a href="{% url 'decoracion' %}?categoria=DECORACION" class="btn btn-body text-dark fw-bold">Decoracion</a>
+                </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Colección 4 -->
+        <div class="col">
+            <div class="card h-100 border-0 shadow-sm">
+                <a href="{% url 'accesorios' %}">
+                <img src="https://img.freepik.com/free-photo/various-types-sewing-tools_1252-671.jpg?t=st=1746700485~exp=1746704085~hmac=41c0b1f9799c15dd8fd361c1d40bb6ca74a199db5ee85e177ec90ca45b6ff75b&w=740" class="card-img-top" alt="Accesorios">
+                <div class="card-body text-center">
+                    <a href="{% url 'accesorios' %}?categoria=ACCESORIOS" class="btn btn-body text-dark fw-bold">Accesorios</a>
+                </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

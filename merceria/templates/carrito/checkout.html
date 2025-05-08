@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load custom_filters %}  
+{% block titulo %}Finalizar Compra{% endblock %}
+
+{% block contenido %}
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-success text-white">
+            <h4><i class="bi bi-credit-card"></i> Proceso de Pago</h4>
+        </div>
+        
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <h5>Resumen de tu compra</h5>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for producto_id, item in request.session.carrito.items %}
+                            <tr>
+                                <td>{{ item.nombre }}</td>
+                                <td>{{ item.cantidad }}</td>
+                                <td>${{ item.precio }}</td>
+                                <td>${{ item.cantidad|multiply:item.precio }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan="3">Total:</th>
+                                <th>${{ total }}</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header bg-info text-white">
+                            <h5>Método de Pago</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="metodo_pago" id="paypal" checked>
+                                <label class="form-check-label" for="paypal">
+                                    <i class="bi bi-paypal"></i> PayPal
+                                </label>
+                            </div>
+                            <div class="mt-3">
+                                <button id="pagar-btn" class="btn btn-success w-100">
+                                    <i class="bi bi-lock-fill"></i> Pagar ${{ total }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('pagar-btn').addEventListener('click', function() {
+    // Simular procesamiento de pago
+    this.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Procesando...';
+    this.disabled = true;
+    
+    setTimeout(function() {
+        window.location.href = "{% url 'procesar_pago' %}";
+    }, 2000); // Simular demora de 2 segundos
+});
+</script>
+{% endblock %}

@@ -1,0 +1,70 @@
+<form enctype="multipart/form-data" method="post">
+  {% csrf_token %}
+  
+  <div class="row g-3">
+      {% for campo in formulario %}
+      <div class="col-md-6">
+          <div class="mb-3">
+              <label class="form-label">{{ campo.label }}</label>
+              
+              {% if campo.name == 'categoria' %}
+                  <!-- Dropdown para categorías (existente) -->
+                  <select name="categoria" class="form-select">
+                      {% for value, label in campo.field.choices %}
+                          <option value="{{ value }}" {% if campo.value == value %}selected{% endif %}>
+                              {{ label }}
+                          </option>
+                      {% endfor %}
+                  </select>
+              
+              {% elif campo.name == 'precio' %}
+                  <!-- Campo especial para precio con decimales -->
+                  <input type="number"
+                         class="form-control"
+                         name="{{ campo.name }}"
+                         id="{{ campo.id_for_label }}"
+                         value="{{ campo.value|default:'' }}"
+                         step="0.01"
+                         min="0.01"
+                         placeholder="Ej. 89.99"
+                         required>
+              
+              {% elif campo.field.widget.input_type == 'file' and campo.value %}
+                  <!-- Manejo de imágenes (existente) -->
+                  <div class="mb-2">
+                      <img src="{{ MEDIA_URL }}{{ campo.value }}" width="100" class="img-thumbnail">
+                  </div>
+                  <input type="{{ campo.field.widget.input_type }}" 
+                         class="form-control" 
+                         name="{{ campo.name }}"
+                         id="{{ campo.id_for_label }}">
+              
+              {% else %}
+                  <!-- Campos normales (existente) -->
+                  <input type="{{ campo.field.widget.input_type }}" 
+                         class="form-control" 
+                         name="{{ campo.name }}"
+                         id="{{ campo.id_for_label }}"
+                         value="{{ campo.value|default:'' }}"
+                         placeholder="{{ campo.label }}">
+              {% endif %}
+              
+              {% if campo.help_text %}
+                  <div class="form-text">{{ campo.help_text }}</div>
+              {% endif %}
+              
+              {% if campo.errors %}
+                  <div class="alert alert-danger mt-1">
+                      {{ campo.errors }}
+                  </div>
+              {% endif %}                
+          </div>
+      </div>
+      {% endfor %}
+  </div>
+  
+  <div class="d-flex justify-content-between mt-4">
+      <a href="{% url 'productmerceria' %}" class="btn btn-danger">Cancelar</a>
+      <input type="submit" value="Guardar Producto" class="btn btn-success">
+  </div>
+</form>

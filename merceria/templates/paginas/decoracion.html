@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block titulo %}Decoracion{% endblock %}
+
+{% block contenido %}
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold">Decoracion</h1>
+        <p class="lead text-muted">Edición especial</p>
+    </div>
+
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+        {% for deco in decoracion %}
+        <div class="col">
+            <div class="card h-100 border-0 shadow-sm">
+                {% if deco.imagen %}
+                <img src="{{ deco.imagen.url }}" class="card-img-top p-3" style="height: 300px; object-fit: contain;">
+                {% endif %}
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ deco.nombre }}</h5>
+                    <p class="price fw-bold">${{ deco.precio }}</p>
+                    {% if deco.stock > 0 %}
+                        <span class="badge bg-info mb-2">{{ deco.stock }} disponibles</span>
+                    {% else %}
+                        <span class="badge bg-danger mb-2">Agotado</span>
+                    {% endif %}
+                    <a href="{% url 'agregar_al_carrito' deco.id %}" 
+                       class="btn btn-outline-secondary w-100 {% if deco.stock == 0 %}disabled{% endif %}">
+                       {% if deco.stock > 0 %}Agregar al carrito{% else %}No disponible{% endif %}
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+

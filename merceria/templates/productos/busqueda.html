@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block titulo %}Resultados de búsqueda{% endblock %}
+
+{% block contenido %}
+<div class="container mt-4">
+    <h2 class="mb-4">Resultados para: <span class="text-info">"{{ query }}"</span></h2>
+    
+    {% if resultados %}
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for producto in resultados %}
+        <div class="col">
+            <div class="card h-100">
+                <img src="{{ producto.imagen.url }}" class="card-img-top p-2" style="height: 350px; object-fit: contain;">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ producto.nombre }}</h5>
+                    <p class="text-muted">{{ producto.get_categoria_display }}</p>
+                    <p class="fw-bold">${{ producto.precio }}</p>
+                    {% if producto.stock > 0 %}
+                        <span class="badge bg-info mb-2">{{ producto.stock }} disponibles</span>
+                    {% else %}
+                        <span class="badge bg-danger mb-2">Agotado</span>
+                    {% endif %}
+                    <a href="{% url 'agregar_al_carrito' producto.id %}" 
+                       class="btn btn-outline-dark w-100 {% if producto.stock == 0 %}disabled{% endif %}">
+                       {% if producto.stock > 0 %}Agregar al carrito{% else %}No disponible{% endif %}
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-warning mt-4">
+        No encontramos productos para <strong>"{{ query }}"</strong>.
+        <a href="{% url 'productmerceria' %}" class="alert-link">Ver todos los productos</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

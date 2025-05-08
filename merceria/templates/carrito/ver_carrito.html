@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block titulo %}Mi Carrito{% endblock %}
+
+{% block contenido %}
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-info text-white">
+            <h4><i class="bi bi-cart-check"></i> Mi Carrito</h4>
+        </div>
+        
+        <div class="card-body">
+            {% if productos %}
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Precio</th>
+                            <th>Cantidad</th>
+                            <th>Subtotal</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in productos %}
+                        <tr>
+                            <td>
+                                <img src="{{ item.producto.imagen.url }}" width="50" class="me-3">
+                                {{ item.producto.nombre }}
+                            </td>
+                            <td>${{ item.producto.precio }}</td>
+                            <td>
+                                <form method="post" action="{% url 'actualizar_carrito' item.producto.id %}">
+                                    {% csrf_token %}
+                                    <input type="number" name="cantidad" value="{{ item.cantidad }}" min="1" max="{{ item.producto.stock }}" class="form-control" style="width: 70px;">
+                                </form>
+                            </td>
+                            <td>${{ item.subtotal }}</td>
+                            <td>
+                                <a href="{% url 'eliminar_del_carrito' item.producto.id %}" class="btn btn-danger btn-sm">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                            <td colspan="2">${{ total }}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="text-end">
+                    <a href="{% url 'inicio' %}" class="btn btn-outline-info">Seguir comprando</a>
+                    <a href="{% url 'checkout' %}" class="btn btn-info">
+                        <i class="bi bi-credit-card"></i> Finalizar compra
+                    </a>
+                </div>
+            </div>
+            {% else %}
+            <div class="text-center py-5">
+                <i class="bi bi-cart-x" style="font-size: 3rem;"></i>
+                <h5 class="mt-3">Tu carrito está vacío</h5>
+                <a href="{% url 'inicio' %}" class="btn btn-info mt-3">Ir a comprar</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
